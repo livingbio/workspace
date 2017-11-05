@@ -26,7 +26,7 @@ def version():
 
 with io.open('README.md') as readme:
     setup(
-        name='workspace',
+        name='livingbio-workspace',
         version=version(),
         description="A workspace helper",
         long_description=readme.read(),
