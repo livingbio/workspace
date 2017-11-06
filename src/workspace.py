@@ -1,12 +1,16 @@
+import hashlib
+import mimetypes
 import os
 import shutil
 import tempfile
 import urllib
+import urlparse
 from contextlib import contextmanager
 from functools import wraps
 from os.path import basename, exists, join
 
 import requests
+from slugify import slugify
 
 
 @contextmanager
@@ -60,8 +64,35 @@ def _local(name, url, opath):
     return opath
 
 
+def is_url(url):
+    return url.startswith("http")
+
+
 def local(url):
-    filename = os.path.basename(url).split('?')[0]
+    if os.path.exists(url):
+        return url
+
+    assert is_url(url), u"{} is not a url".format(url)
+
+    r = requests.head(url)
+    assert r.status_code == 200
+
+    def _get_filename_ext_from_response(r):
+        if "ETag" in r.headers:
+            name = slugify(r.headers["ETag"])
+        else:
+            name = hashlib.md5(r.url).hexdigest()
+
+        if "Content-Type" in r.headers:
+            ext = mimetypes.guess_extension(r.headers["Content-Type"])
+        else:
+            path = urlparse.urlparse(r.url).path
+            ext = os.path.splitext(path)[1]
+
+        return name, ext
+
+    filename = "%s%s" % _get_filename_ext_from_response(r)
+
     return _local(filename, url)
 
 
