@@ -1,8 +1,14 @@
+import logging
 import os
 
 import workspace
-from django.core.files import File
-from django.core.files.storage import DefaultStorage, FileSystemStorage
+
+try:
+    from django.core.files import File
+    from django.core.files.storage import DefaultStorage, FileSystemStorage
+except ImportError:
+    logging.warning("django_workspace require used in django framework")
+    raise
 
 
 def store(fieldfile, filepath):

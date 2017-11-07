@@ -1,9 +1,11 @@
 import os
-import urlparse
+from os.path import join, dirname
 
 import requests
 
 from workspace import cache, local, remote, tmp
+
+test_file = join(dirname(__file__), "test_data/350x150.jpg")
 
 
 class TestWorkspace(object):
@@ -34,6 +36,6 @@ class TestWorkspace(object):
         assert os.path.basename(ofile) == '59dedab3-99f.jpe'
 
     def test_remote(self):
-        url = remote('./350x150.jpg')
+        url = remote(test_file)
         resp = requests.get(url)
         assert resp.status_code == 200
