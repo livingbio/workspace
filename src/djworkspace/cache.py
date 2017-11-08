@@ -7,7 +7,7 @@ def lrucache(key_str):
         @wraps(func)
         def wrapper(*args, **kwargs):
             key = key_str.format(*args, **kwargs)
-            type = func.__name__
+            type = '{}.{}'.format(func.__module__, func.__name__)
 
             try:
                 return Cache.objects.get(

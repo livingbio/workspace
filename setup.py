@@ -21,7 +21,7 @@ INSTALL_REQUIRES = (
 
 
 def version():
-    return "0.7"
+    return "0.9.1"
 
 
 with io.open('README.md') as readme:
@@ -49,7 +49,7 @@ with io.open('README.md') as readme:
             'Topic :: Software Development :: Quality Assurance',
         ],
         install_requires=INSTALL_REQUIRES,
-        py_modules=['workspace'],
+        py_modules=['workspace', 'djworkspace'],
         packages=find_packages('src'),
         package_dir={'': 'src'},
         zip_safe=False,
