@@ -1,6 +1,6 @@
 import pytest
-from .cache import lrucache
-from .models import Cache
+from ..cache import lrucache
+from ..models import Cache
 
 
 @lrucache('{0}+{1}')

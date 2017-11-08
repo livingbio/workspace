@@ -3,7 +3,7 @@ from os.path import dirname, exists, join
 import pytest
 from django.db import models
 
-from django_workspace import local, remote, store
+from djworkspace.workspace import local, remote, store
 from fake.models import Fake
 
 test_file = join(dirname(__file__), "test_data/350x150.jpg")
