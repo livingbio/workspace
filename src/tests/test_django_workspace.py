@@ -1,16 +1,18 @@
 from os.path import dirname, exists, join
 
 import pytest
+from django.db import models
 
 from django_workspace import local, remote, store
-from .models import Test
+from fake.models import Fake
 
-test_file = join(dirname(__file__), "test_data/testfile.txt")
+test_file = join(dirname(__file__), "test_data/350x150.jpg")
+
 
 
 @pytest.mark.django_db
 def test_store():
-    test = Test()
+    test = Fake()
     store(test.field, test_file)
 
     assert open(test.field.path).read() == open(test_file).read()
