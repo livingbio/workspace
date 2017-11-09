@@ -30,9 +30,12 @@ def remote(filepath, storage=DefaultStorage()):
 
 def local(url_or_remote_file):
     if isinstance(url_or_remote_file, File):
-        if getattr(url_or_remote_file, 'path'):
-            # HINT: the storage is FileSystemStorage
-            return url_or_remote_file.path
+        try:
+            filepath = url_or_remote_file.path
+            if os.path.exists(filepath):
+                return filepath
+        except Exception:
+            pass
 
         return workspace.local(url_or_remote_file.url)
 
