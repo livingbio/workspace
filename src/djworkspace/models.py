@@ -8,10 +8,10 @@ from picklefield.fields import PickledObjectField
 
 
 class Cache(models.Model):
-    type = models.CharField(max_length=40)
-    key = models.CharField(max_length=40)
+    type = models.CharField(max_length=100)
+    key = models.CharField(max_length=100)
 
-    results = PickledObjectField()
+    results = PickledObjectField(null=True)
 
     class Meta:
         unique_together = (('type', 'key'), )
