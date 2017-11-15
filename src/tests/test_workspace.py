@@ -33,7 +33,7 @@ class TestWorkspace(object):
     def test_local(self):
         ofile = local('http://via.placeholder.com/350x150.jpg')
 
-        assert os.path.basename(ofile) == '59dedab3-99f.jpe'
+        assert os.path.basename(ofile).endswith('99f.jpe')
 
     def test_remote(self):
         url = remote(test_file)

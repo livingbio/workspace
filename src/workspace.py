@@ -19,10 +19,11 @@ def tmp(tmpdir="./tmp"):
         os.makedirs(tmpdir)
 
     path = tempfile.mkdtemp(dir="./tmp")
-    yield path
-
-    if exists(path):
-        shutil.rmtree(path)
+    try:
+        yield path
+    finally:
+        if exists(path):
+            shutil.rmtree(path)
 
 
 def cache(outpath):

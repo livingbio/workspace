@@ -21,7 +21,7 @@ INSTALL_REQUIRES = (
 
 
 def version():
-    return "0.9.5"
+    return "0.9.6"
 
 
 with io.open('README.md') as readme:
