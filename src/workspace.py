@@ -38,6 +38,9 @@ def cache(outpath):
             else:
                 opath = './tmp/%s' % basename(path)
 
+            if isinstance(opath, unicode):
+                opath = opath.encode('utf8')
+
             if exists(opath):
                 return opath
 
