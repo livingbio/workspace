@@ -31,11 +31,17 @@ def remote(filepath, storage=DefaultStorage()):
 def local(url_or_remote_file):
     if isinstance(url_or_remote_file, File):
         try:
+            # NOTE: if it is a local file storage
             filepath = url_or_remote_file.path
             if os.path.exists(filepath):
                 return filepath
         except Exception:
             pass
+
+        if url_or_remote_file.storage.__class__.__name__.startswith('HashedFilename'):
+            # NOTE: if it is a hashedfilename storage
+            filename = os.path.basename(url_or_remote_file.name)
+            return workspace._local(filename, url_or_remote_file.url)
 
         return workspace.local(url_or_remote_file.url)
 

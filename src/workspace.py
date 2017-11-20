@@ -38,9 +38,6 @@ def cache(outpath):
             else:
                 opath = './tmp/%s' % basename(path)
 
-            if isinstance(opath, unicode):
-                opath = opath.encode('utf8')
-
             if exists(opath):
                 return opath
 
@@ -72,6 +69,21 @@ def is_url(url):
     return url.startswith("http")
 
 
+def _get_filename_ext_from_response(r):
+    if "ETag" in r.headers:
+        name = slugify(r.headers["ETag"])
+    else:
+        name = hashlib.md5(r.url).hexdigest()
+
+    if "Content-Type" in r.headers:
+        ext = mimetypes.guess_extension(r.headers["Content-Type"])
+    else:
+        path = urlparse.urlparse(r.url).path
+        ext = os.path.splitext(path)[1]
+
+    return name, ext
+
+
 def local(url):
     if os.path.exists(url):
         return url
@@ -81,22 +93,7 @@ def local(url):
     r = requests.head(url)
     assert r.status_code == 200
 
-    def _get_filename_ext_from_response(r):
-        if "ETag" in r.headers:
-            name = slugify(r.headers["ETag"])
-        else:
-            name = hashlib.md5(r.url).hexdigest()
-
-        if "Content-Type" in r.headers:
-            ext = mimetypes.guess_extension(r.headers["Content-Type"])
-        else:
-            path = urlparse.urlparse(r.url).path
-            ext = os.path.splitext(path)[1]
-
-        return name, ext
-
     filename = "%s%s" % _get_filename_ext_from_response(r)
-
     return _local(filename, url)
 
 
