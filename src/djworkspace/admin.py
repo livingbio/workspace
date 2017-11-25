@@ -10,6 +10,8 @@ from .models import Cache
 
 class CacheAdmin(admin.ModelAdmin):
     list_display = ('type', 'key')
+    list_filter = ('type', )
+    search_fields = ('key', 'type', )
 
 
 admin.site.register(Cache, CacheAdmin)
