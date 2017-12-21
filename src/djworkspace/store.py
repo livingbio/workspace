@@ -1,5 +1,6 @@
 import logging
 import os
+from contextlib import contextmanager
 
 import workspace
 
@@ -46,3 +47,13 @@ def local(url_or_remote_file):
         return workspace.local(url_or_remote_file.url)
 
     return workspace.local(url_or_remote_file)
+
+
+@contextmanager
+def temp_local(url_or_remote_file):
+    filepath = local(url_or_remote_file)
+
+    try:
+        yield filepath
+    finally:
+        os.remove(filepath)

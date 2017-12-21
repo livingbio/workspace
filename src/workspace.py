@@ -14,11 +14,11 @@ from slugify import slugify
 
 
 @contextmanager
-def tmp(tmpdir="./tmp"):
+def tmp(tmpdir=u"./tmp"):
     if not exists(tmpdir):
         os.makedirs(tmpdir)
 
-    path = tempfile.mkdtemp(dir="./tmp")
+    path = tempfile.mkdtemp(dir=u"./tmp")
     try:
         yield path
     finally:
@@ -34,9 +34,9 @@ def cache(outpath):
             mode = 'folder' if path.endswith('/') else 'file'
 
             if mode == "folder":
-                opath = './tmp/%s/' % path.split('/')[-2]
+                opath = u'./tmp/%s/' % path.split('/')[-2]
             else:
-                opath = './tmp/%s' % basename(path)
+                opath = u'./tmp/%s' % basename(path)
 
             if exists(opath):
                 return opath
