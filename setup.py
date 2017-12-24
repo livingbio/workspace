@@ -4,9 +4,9 @@
 
 import io
 import sys
-from setuptools import setup
-from setuptools import find_packages
+import time
 
+from setuptools import find_packages, setup
 
 reqs = []
 with open('requirements.txt') as ifile:
@@ -21,7 +21,7 @@ INSTALL_REQUIRES = (
 
 
 def version():
-    return "0.9.9"
+    return str(time.time())
 
 
 with io.open('README.md') as readme:

@@ -1,5 +1,6 @@
 from .models import Cache
 from functools import wraps
+import hashlib
 
 
 def lrucache(key_str):
@@ -7,6 +8,10 @@ def lrucache(key_str):
         @wraps(func)
         def wrapper(*args, **kwargs):
             key = key_str.format(*args, **kwargs)
+
+            if len(key) > 100:
+                key = hashlib.md5(key).hexdigest()
+
             type = '{}.{}'.format(func.__module__, func.__name__)
 
             try:
