@@ -8,7 +8,7 @@ import urlparse
 from contextlib import contextmanager
 from functools import wraps
 from os.path import basename, exists, join
-
+import logging
 import requests
 from slugify import slugify
 
@@ -16,9 +16,12 @@ from slugify import slugify
 @contextmanager
 def tmp(tmpdir=u"./tmp"):
     if not exists(tmpdir):
-        os.makedirs(tmpdir)
+        try:
+            os.makedirs(tmpdir)
+        except Exception:
+            logging.exception("path error")
 
-    path = tempfile.mkdtemp(dir=u"./tmp")
+    path = tempfile.mkdtemp(tmpdir)
     try:
         yield path
     finally:
