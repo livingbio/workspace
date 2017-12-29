@@ -1,4 +1,5 @@
 import hashlib
+import logging
 import mimetypes
 import os
 import shutil
@@ -7,21 +8,21 @@ import urllib
 import urlparse
 from contextlib import contextmanager
 from functools import wraps
-from os.path import basename, exists, join
-import logging
+from os.path import basename, exists, join, realpath
+
 import requests
 from slugify import slugify
 
 
 @contextmanager
-def tmp(tmpdir=u"./tmp"):
+def tmp(tmpdir=realpath(u"./tmp")):
     if not exists(tmpdir):
         try:
             os.makedirs(tmpdir)
         except Exception:
             logging.exception("path error")
 
-    path = tempfile.mkdtemp(tmpdir)
+    path = tempfile.mkdtemp(dir=tmpdir)
     try:
         yield path
     finally:
