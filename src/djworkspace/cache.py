@@ -10,7 +10,7 @@ def lrucache(key_str):
             key = key_str.format(*args, **kwargs)
 
             if len(key) > 100:
-                key = hashlib.md5(key).hexdigest()
+                key = hashlib.md5(key.encode('utf8')).hexdigest()
 
             type = '{}.{}'.format(func.__module__, func.__name__)
 
