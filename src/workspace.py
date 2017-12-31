@@ -21,7 +21,8 @@ def tmp(tmpdir=u"./tmp"):
         except Exception:
             logging.exception("path error")
 
-    path = tempfile.mkdtemp(tmpdir)
+    path = tempfile.mkdtemp(dir=tmpdir)
+    
     try:
         yield path
     finally:

@@ -26,7 +26,7 @@ def remote(filepath, storage=DefaultStorage()):
     filename = os.path.basename(filepath)
 
     with open(filepath, 'rb') as ifile:
-        return storage.save(filename, File(ifile))
+        return storage.url(storage.save(filename, File(ifile)))
 
 
 def local(url_or_remote_file):

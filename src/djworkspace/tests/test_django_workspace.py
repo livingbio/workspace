@@ -29,4 +29,7 @@ def test_local():
 
 def test_remote():
     with pytest.raises(AssertionError):
-        remote(test_file)
+        # NOTE: raise exception while use local file storage
+        url = remote(test_file)
+
+        # assert url.startswith('http')
