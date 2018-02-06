@@ -63,8 +63,11 @@ def cache(outpath):
     return x
 
 
-@cache("{0}")
+@cache(u"{0}")
 def _local(name, url, opath):
+    if isinstance(url, unicode):
+        url = url.encode('utf8')
+
     urllib.urlretrieve(url, opath)
     return opath
 
