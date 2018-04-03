@@ -98,7 +98,7 @@ def local(url):
     assert is_url(url), u"{} is not a url".format(url)
 
     r = requests.head(url)
-    assert r.status_code == 200
+    assert r.status_code == 200, u"{} return status code {}".format(url, r.status_code)
 
     filename = "%s%s" % _get_filename_ext_from_response(r)
     return _local(filename, url)
