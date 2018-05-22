@@ -36,6 +36,10 @@ class TestWorkspace(object):
         assert os.path.basename(ofile).endswith('99f.jpe')
 
     def test_remote(self):
-        url = remote(test_file)
-        resp = requests.get(url)
-        assert resp.status_code == 200
+        # 為了避免網路問題，remote測試會跑3次，只要成功就直接離開
+        for _ in range(3):
+            url = remote(test_file)
+            resp = requests.get(url)
+            if resp.status_code == 200:
+                return
+        assert False  # 三次失敗
