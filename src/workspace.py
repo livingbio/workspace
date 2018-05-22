@@ -5,7 +5,10 @@ import os
 import shutil
 import tempfile
 import urllib
-import urlparse
+try:
+    from urlparse import urlparse
+except:
+    from urllib.parse import urlparse
 from contextlib import contextmanager
 from functools import wraps
 from os.path import basename, exists, join, realpath
@@ -85,7 +88,7 @@ def _get_filename_ext_from_response(r):
     if "Content-Type" in r.headers:
         ext = mimetypes.guess_extension(r.headers["Content-Type"])
     else:
-        path = urlparse.urlparse(r.url).path
+        path = urlparse(r.url).path
         ext = os.path.splitext(path)[1]
 
     return name, ext
