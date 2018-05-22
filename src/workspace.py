@@ -7,8 +7,10 @@ import tempfile
 import urllib
 try:
     from urlparse import urlparse
+    from urllib import urlretrieve
 except:
     from urllib.parse import urlparse
+    from urllib.request import urlretrieve
 from contextlib import contextmanager
 from functools import wraps
 from os.path import basename, exists, join, realpath
@@ -68,10 +70,13 @@ def cache(outpath):
 
 @cache(u"{0}")
 def _local(name, url, opath):
-    if isinstance(url, unicode):
-        url = url.encode('utf8')
+    try:
+        if isinstance(url, unicode):
+            url = url.encode('utf8')
+    except:
+        pass
 
-    urllib.urlretrieve(url, opath)
+    urlretrieve(url, opath)
     return opath
 
 

@@ -15,7 +15,7 @@ def test_store():
     test = Fake()
     store(test.field, test_file)
 
-    assert open(test.field.path).read() == open(test_file).read()
+    assert open(test.field.path, 'rb').read() == open(test_file, 'rb').read()
     return test.field
 
 

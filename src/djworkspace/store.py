@@ -15,7 +15,7 @@ except ImportError:
 def store(fieldfile, filepath):
     filename = os.path.basename(filepath)
 
-    with open(filepath) as ifile:
+    with open(filepath, 'rb') as ifile:
         fieldfile.save(filename, File(ifile))
 
 
