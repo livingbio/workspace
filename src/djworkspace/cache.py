@@ -22,10 +22,12 @@ def lrucache(key_str):
             except Cache.DoesNotExist:
                 result = func(*args, **kwargs)
 
-                Cache.objects.create(
+                Cache.objects.get_or_create(
                     key=key,
                     type=type,
-                    results=result
+                    defaults={
+                        "results": result
+                    }
                 )
                 return result
 
