@@ -1,4 +1,20 @@
-pytest
-pytest-cov
+# A high-level Python Web framework that encourages rapid development and clean, pragmatic design.
+# https://pypi.python.org/pypi/Django/1.11.14
+
+# for python 2.X support
+Django<2.0
+
+
+# A Django plugin for py.test.
+# https://pypi.python.org/pypi/pytest-django/
 pytest-django
-django<=1.11
+
+
+# pytest: simple powerful testing with Python
+# https://pypi.python.org/pypi/pytest/
+pytest>=3.6
+
+
+# Pytest plugin for measuring coverage.
+# https://pypi.python.org/pypi/pytest-cov/
+pytest-cov
