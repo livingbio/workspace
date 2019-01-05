@@ -2,7 +2,7 @@
 # https://pypi.python.org/pypi/Django/1.11.14
 
 # for python 2.X support
-Django<2.0
+Django
 
 
 # A Django plugin for py.test.
