@@ -88,7 +88,7 @@ def _get_filename_ext_from_response(r):
     if "ETag" in r.headers:
         name = slugify(r.headers["ETag"])
     else:
-        name = hashlib.md5(r.url.encode('utf8')).hexdigest()
+        name = hashlib.md5(r.url.encode('utf-8')).hexdigest()
 
     if "Content-Type" in r.headers:
         ext = mimetypes.guess_extension(r.headers["Content-Type"])
